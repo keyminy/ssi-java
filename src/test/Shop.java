@@ -1,6 +1,7 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class Shop {
@@ -36,15 +37,17 @@ public class Shop {
 	}
 	
 	// 상품 상세
-	public Product getProduct(int num) {		
+	public Product getProduct(int num) {	
 		Product product = null;
 		try {
-			product = productList.get(num);
-		} catch (IndexOutOfBoundsException  e) {
+			product = productList.stream()
+				.filter(p -> p.getNum() == num)
+				.findAny()
+				.orElseThrow();
+		}catch (NoSuchElementException  e) {
 			System.out.printf("%d번 상품은 존재하지 않습니다.\n",num);
 			return null;
 		}
-		
 		if(product == null) {
 			System.out.printf("%d번 상품은 존재하지 않습니다.\n",num);
 			return null;
