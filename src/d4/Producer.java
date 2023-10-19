@@ -28,6 +28,7 @@ public class Producer implements Runnable{
 					e.printStackTrace();
 				}
 			}
+			storage.notify();
 		}
 	}
 
