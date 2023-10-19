@@ -44,9 +44,9 @@ public class SimpleServer {
 	}
 	
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		//port open
-		ServerSocket ss = new ServerSocket(9999);
+		SimpleServer ss = new SimpleServer(9999);
 		
 	}
 
