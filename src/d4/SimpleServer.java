@@ -1,15 +1,19 @@
 package d4;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class SimpleServer {
 
 	private ServerSocket ss;
+	private ArrayList<Socket> socketList = new ArrayList<>();
+	
 		
 	public SimpleServer() {
 		this(9999);
@@ -28,6 +32,8 @@ public class SimpleServer {
 			while(true) {
 				//client가 들어오는지 확인, 들어오면 socket생성
 				Socket s = ss.accept(); 
+				//accept하면 
+				socketList.add(s);
 
 				//클라이언트가 들어오면, Thread생성
 				ServerThread st = new ServerThread(s);
@@ -47,7 +53,21 @@ public class SimpleServer {
 		
 	}
 	
-	static class ServerThread implements Runnable{
+	public void broadcast(String msg) {
+		for(int i=0;i<socketList.size();i++) {
+			Socket sk = socketList.get(i);
+			System.out.println("===> client로 전송");
+			try {
+				//auto flush까먹기 쉽다!!조심..
+				PrintWriter pw = new PrintWriter(sk.getOutputStream(),true);
+				pw.println(msg);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	class ServerThread implements Runnable{
 
 		private Socket socket;
 		
@@ -67,6 +87,7 @@ public class SimpleServer {
 				String data = br.readLine();
 				while(data != null) {
 					System.out.println("Receive : " + data);
+					broadcast(data); //모든 client에게 data전송
 					data = br.readLine();
 				}
 			} catch (Exception e) {
