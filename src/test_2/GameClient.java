@@ -10,7 +10,7 @@ import java.net.Socket;
 public class GameClient {
 	private Socket socket;
 	private BufferedWriter bw;
-	private BufferedReader br;//키보드 연결을 위해
+	private BufferedReader keyboard;//키보드 연결을 위해
 	
 	
 	public GameClient(String ip, int port) {
@@ -19,7 +19,7 @@ public class GameClient {
 				socket = new Socket(ip,port);
 				System.out.println("서버 연결 성공");
 				//입력 버퍼 : 닉네임 설정(키보드 입력)
-				br = new BufferedReader(new InputStreamReader(System.in));
+				keyboard = new BufferedReader(new InputStreamReader(System.in));
 
 				//쓰기버퍼 : 클라 -> 서버
 				OutputStream os = socket.getOutputStream();
@@ -28,7 +28,7 @@ public class GameClient {
 				/* 키보드 입력과, 쓰는부분을 while문으로..*/
 				while(true) {
 					System.out.println("사용할 별칭을 입력하세요 : ");
-					String nickName = br.readLine();
+					String nickName = keyboard.readLine();
 					pw.println(nickName);					
 				}
 			} catch (Exception e) {
