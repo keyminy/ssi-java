@@ -22,4 +22,14 @@ public class Game {
 	public Quiz getQuiz(int index) {
 		return list.get(index);
 	}
+
+	public ArrayList<Quiz> getList() {
+		return list;
+	}
+
+	public void setList(ArrayList<Quiz> list) {
+		this.list = list;
+	}
+	
 }
+

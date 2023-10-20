@@ -19,7 +19,7 @@ public class Quiz {
 
 	@Override
 	public String toString() {
-		String data = null;
+		String data = "";
 		
 		/* (return 데이터 조합의 예) 
 		 * [문제] 대한민국의 수도는?
@@ -30,7 +30,11 @@ public class Quiz {
 		 * 
 		 * (조건) 예문은 랜덤하게 섞어서 출력한다. 
 		 */
-		
+		data += ("[문제] " + this.question +"\n");
+		data += ("1. " + this.answer+"\n");
+		data += ("2. " + this.exampleOne+"\n");
+		data += ("3. " + this.exampleTwo+"\n");
+		data += ("4. " + this.exampleThree+"\n");
 		return data;
 	}
 
