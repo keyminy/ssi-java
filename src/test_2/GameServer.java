@@ -53,7 +53,7 @@ public class GameServer {
 			String nickName = sbr.readLine();
 			System.out.println(nickName+"님이 입장했습니다.");	
 			
-			//GameThread : 클라이언트에게 문제 전송 + 답안 확인
+			//GameThread : 클라이언트에게 문제 전송 + 답안 확인.
 			GameThread gt = new GameThread(socket);
 			Thread thread = new Thread(gt);
 			thread.start();
